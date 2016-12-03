@@ -54,6 +54,7 @@ No exported functions at this time.
 ```{r, eval = F}
 use_readme_rmd()
 use_data_raw()
+use_data()
 ```
 
 * see `data-raw/` in pkg source:    

@@ -34,7 +34,7 @@ ae_arrays %>% glimpse()
 ``` r
 ae_experiments %>% glimpse()
 #> Observations: 1,994
-#> Variables: 10
+#> Variables: 11
 #> $ accession        <chr> "E-MTAB-4826", "E-MTAB-4268", "E-GEOD-75263",...
 #> $ title            <chr> "RIP-seq analysis of Isw1 interacting transcr...
 #> $ type             <chr> "RIP-seq", "transcription profiling by array"...
@@ -45,6 +45,7 @@ ae_experiments %>% glimpse()
 #> $ raw_data         <chr> "Data is not available", "http://www.ebi.ac.u...
 #> $ present_in_atlas <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
 #> $ arrayexpress_url <chr> "http://www.ebi.ac.uk/arrayexpress/experiment...
+#> $ array            <chr> NA, "A-AFFY-116", "A-GEOD-4414,A-MEXP-1113", ...
 ```
 
 In principle this should be a superset of array express only data and the GEO/SRA databases over at NCBI but this is not the case in practise.
@@ -69,6 +70,7 @@ pkg creation:
 ``` r
 use_readme_rmd()
 use_data_raw()
+use_data()
 ```
 
 -   see `data-raw/` in pkg source:
@@ -79,6 +81,7 @@ use_data_raw()
 | 02   | clean tbl for valid arrays                     |
 | 03   | remove intermediates                           |
 | 04   | download and save ae experiments scer metadata |
+| 05   | ae experiment to ae array mapping              |
 
 -   when writing `R/` fxns:
 
