@@ -34,6 +34,11 @@ ae_arrays %>% glimpse()
 ae_experiments %>% glimpse()
 ```
 
+3. `ae_links` contains links between accession type within AE
+```{r}
+ae_links
+```
+
 
 In principle this should be a superset of array express only data and the GEO/SRA databases over 
 at NCBI but this is not the case in practise.  
