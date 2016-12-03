@@ -67,6 +67,26 @@ ae_links
 #> # ... with 1,839 more rows
 ```
 
+1.  `ae_cel_files`
+
+``` r
+ae_cel_files
+#> # A tibble: 564 × 2
+#>    ae_experiment  cel_files
+#>            <chr>     <list>
+#> 1   E-GEOD-10031 <chr [22]>
+#> 2   E-GEOD-10066  <chr [9]>
+#> 3   E-GEOD-10073  <chr [6]>
+#> 4   E-GEOD-10091  <chr [4]>
+#> 5   E-GEOD-10104  <chr [6]>
+#> 6   E-GEOD-10205 <chr [14]>
+#> 7   E-GEOD-10521 <chr [25]>
+#> 8   E-GEOD-10554  <chr [6]>
+#> 9   E-GEOD-10930  <chr [4]>
+#> 10  E-GEOD-10933  <chr [4]>
+#> # ... with 554 more rows
+```
+
 In principle this should be a superset of array express only data and the GEO/SRA databases over at NCBI but this is not the case in practise.
 
 install
@@ -100,7 +120,8 @@ use_data()
 | 02   | clean tbl for valid arrays and save            |
 | 03   | remove intermediates                           |
 | 04   | download and save ae experiments scer metadata |
-| 05   | ae experiment to ae array mapping              |
+| 05   | download all sdrf files                        |
+| 06   | ae experiment associated cel files             |
 
 -   when writing `R/` fxns:
 

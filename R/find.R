@@ -10,3 +10,8 @@ find_in_arrays <- function(x) {
     finds <- purrr::map(finds, unique)
     purrr::map(finds, ~dplyr::filter(d, accession %in% .x))
 }
+
+
+find_in_sdrfs <- function(x) {
+
+}
