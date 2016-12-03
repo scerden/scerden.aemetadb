@@ -5,27 +5,43 @@ library(tidyverse)
 library(httr)
 library(stringr)
 
-query <- "Saccharomyces cerevisiae"
+# Get experiments ---------------------------------------------------------
 
-# all array express experiments for scer ----------------------------------
-# api to download tsv format file
-url <- "http://www.ebi.ac.uk/arrayexpress/ArrayExpress-Experiments.txt"
-keywords <- str_replace_all(query, ' ', '+')
-h <- GET(url, query = list(keywords = keywords))
-h$status_code
-d <- content(h) %>% read_tsv()
-d %>% glimpse()
+load("data/ae_arrays.rda") # has all
 
+api_results <- tibble(ae_array = ae_arrays$accession,
+                      d = ae_array %>% map(scerden.aemetadb::ae_array_experiements))
+d <- api_results %>% unnest()
+
+# nice var names
+names(d) <- names(d) %>% str_to_lower() %>% str_replace_all(' ', '_')
+d <- d %>% rename(ae_experiment = accession)
 
 
 # check organism variable -------------------------------------------------
 
-d <- d %>% filter(str_detect(Organism, query))
-# nice var names
-names(d) <- names(d) %>% str_to_lower() %>% str_replace_all(' ', '_')
+pattern <- "Saccharomyces cerevisiae"
+d_clean <- d %>% filter(str_detect(organism, pattern))
 
+
+
+# array <—> experiment ----------------------------------------------------
+
+ae_links <- d_clean %>%
+    select(ae_array, ae_experiment) %>%
+    unique()
+
+
+# Experiments tbl ---------------------------------------------------------
+
+ae_experiments <- d_clean %>%
+    select(-ae_array) %>%
+    unique()
 
 
 # Save object -------------------------------------------------------------
-ae_experiments <- d
-use_data(ae_experiments)
+
+use_data(ae_links, overwrite = T)
+use_data(ae_experiments, overwrite = T)
+
+
