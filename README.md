@@ -99,7 +99,25 @@ devtools::install_github("scerden/scerden.aemetadb")
 pkg API
 -------
 
-No exported functions at this time.
+Get sample files associated with an experiment:
+
+``` r
+ae_sample_files("E-MEXP-27")
+#> # A tibble: 40 × 4
+#>          assay_name                type
+#>               <chr>               <chr>
+#> 1  E-MEXP-27:xrn1-B                data
+#> 2  E-MEXP-27:xrn1-B derived data matrix
+#> 3        xrn1upf3-A                data
+#> 4        xrn1upf3-A derived data matrix
+#> 5        xrn1nmd2-D                data
+#> 6        xrn1nmd2-D derived data matrix
+#> 7  E-MEXP-27:xrn1-D                data
+#> 8  E-MEXP-27:xrn1-D derived data matrix
+#> 9            xrn1-C                data
+#> 10           xrn1-C derived data matrix
+#> # ... with 30 more rows, and 2 more variables: name <chr>, url <chr>
+```
 
 pkg creation:
 -------------
@@ -122,6 +140,7 @@ use_data()
 | 04   | download and save ae experiments scer metadata |
 | 05   | download all sdrf files                        |
 | 06   | ae experiment associated cel files             |
+| 06   | b download sample files and parse              |
 
 -   when writing `R/` fxns:
 
@@ -130,4 +149,6 @@ use_package("tidyr")
 use_package("dplyr")
 use_package("purrr")
 use_package("stringr")
+use_package("httr")
+use_package("tibble")
 ```

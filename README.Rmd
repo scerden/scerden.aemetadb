@@ -56,7 +56,10 @@ devtools::install_github("scerden/scerden.aemetadb")
 
 ## pkg API
 
-No exported functions at this time.
+Get sample files associated with an experiment:
+```{r}
+ae_sample_files("E-MEXP-27")
+```
 
 ## pkg creation:
 
@@ -83,4 +86,6 @@ use_package("tidyr")
 use_package("dplyr")
 use_package("purrr")
 use_package("stringr")
+use_package("httr")
+use_package("tibble")
 ```
