@@ -67,7 +67,7 @@ ae_links
 #> # ... with 1,839 more rows
 ```
 
-1.  `ae_cel_files`
+1.  `ae_cel_files` cel file names made by parsing all he SDRF.txt files for scerden AE experiments
 
 ``` r
 ae_cel_files
@@ -85,6 +85,26 @@ ae_cel_files
 #> 9   E-GEOD-10930  <chr [4]>
 #> 10  E-GEOD-10933  <chr [4]>
 #> # ... with 554 more rows
+```
+
+1.  `ae_samples` contains names and urls of sample data files for experiments in AE scerden
+
+``` r
+ae_samples
+#> # A tibble: 96,434 × 5
+#>    ae_experiment assay_name         type
+#>            <chr>      <chr>        <chr>
+#> 1   E-GEOD-77842 GSM2060303         data
+#> 2   E-GEOD-77842 GSM2060303 derived data
+#> 3   E-GEOD-77842 GSM2060302         data
+#> 4   E-GEOD-77842 GSM2060302 derived data
+#> 5   E-GEOD-77842 GSM2060301         data
+#> 6   E-GEOD-77842 GSM2060301 derived data
+#> 7   E-GEOD-77842 GSM2060300         data
+#> 8   E-GEOD-77842 GSM2060300 derived data
+#> 9   E-GEOD-77842 GSM2060299         data
+#> 10  E-GEOD-77842 GSM2060299 derived data
+#> # ... with 96,424 more rows, and 2 more variables: name <chr>, url <chr>
 ```
 
 In principle this should be a superset of array express only data and the GEO/SRA databases over at NCBI but this is not the case in practise.

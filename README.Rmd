@@ -39,9 +39,14 @@ ae_experiments %>% glimpse()
 ae_links
 ```
 
-4. `ae_cel_files`
+4. `ae_cel_files` cel file names made by parsing all he SDRF.txt files for scerden AE experiments  
 ```{r}
 ae_cel_files
+```
+
+5. `ae_samples` contains names and urls of sample data files for experiments in AE scerden
+```{r}
+ae_samples
 ```
 
 
