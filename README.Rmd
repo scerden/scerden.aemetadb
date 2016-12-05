@@ -61,10 +61,58 @@ devtools::install_github("scerden/scerden.aemetadb")
 
 ## pkg API
 
-Get sample files associated with an experiment:
+### Array Express REST API
+
+#### main exported functions:
+
+* `ae_get_files(accession)`  
+* `ae_get_samples(accession)`  
+* `ae_get_platforms(accession)`  
+
+Starting from an experiment accession:  
 ```{r}
-ae_sample_files("E-MEXP-27")
+x <- "E-MEXP-27"
 ```
+
+get associated files:  
+```{r}
+ae_get_files(x)
+ae_get_files(x) %>% unnest()
+```
+
+get associated samples: 
+```{r}
+ae_get_samples(x)
+ae_get_samples(x) %>% unnest()
+```
+
+get associated protocols:
+```{r}
+ae_get_protocols(x)
+ae_get_protocols(x) %>% unnest()
+```
+
+
+
+#### Customized queries:
+
+Use two composable functions to query against rest api. choose api endpoint with
+ `ae_rest_url()` and execute request via `ae_query(field1=value1, field2=value2,...)`.
+ see: http://www.ebi.ac.uk/arrayexpress/help/programmatic_access.html#Updates
+
+```{r}
+ae_rest_url()
+ae_rest_url("protocols") %>% ae_query(species = "saccharomyces cerevisiae", 
+                                  keywords = "topoisomerase")
+```
+
+
+### Deprecated:
+
+```{r, eval=FALSE}
+ae_sample_files(x)
+```
+
 
 ## pkg creation:
 

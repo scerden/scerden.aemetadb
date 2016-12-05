@@ -8,11 +8,12 @@ length(experiments)
 # ae_sample_files fxn from: http://www.ebi.ac.uk/arrayexpress/help/programmatic_access.html#Files
 ae_sample_files_safely <- safely(ae_sample_files)
 
-outfile <- "data-raw/2016-12-03_safe-out.rds"
+outfile <- "data-raw/2016-12-04_safe-out.rds"
 if(!file.exists(outfile)) {
     safe_out <- map(experiments, ae_sample_files_safely)
     write_rds(safe_out, outfile)
 }
+
 safe_out <- read_rds(outfile)
 out <- safe_out %>% map("result")
 out <- bind_rows(out, .id = "index")

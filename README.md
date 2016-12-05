@@ -119,24 +119,121 @@ devtools::install_github("scerden/scerden.aemetadb")
 pkg API
 -------
 
-Get sample files associated with an experiment:
+### Array Express REST API
+
+#### main exported functions:
+
+-   `ae_get_files(accession)`
+-   `ae_get_samples(accession)`
+-   `ae_get_platforms(accession)`
+
+Starting from an experiment accession:
 
 ``` r
-ae_sample_files("E-MEXP-27")
-#> # A tibble: 40 × 4
-#>          assay_name                type
-#>               <chr>               <chr>
-#> 1  E-MEXP-27:xrn1-B                data
-#> 2  E-MEXP-27:xrn1-B derived data matrix
-#> 3        xrn1upf3-A                data
-#> 4        xrn1upf3-A derived data matrix
-#> 5        xrn1nmd2-D                data
-#> 6        xrn1nmd2-D derived data matrix
-#> 7  E-MEXP-27:xrn1-D                data
-#> 8  E-MEXP-27:xrn1-D derived data matrix
-#> 9            xrn1-C                data
-#> 10           xrn1-C derived data matrix
-#> # ... with 30 more rows, and 2 more variables: name <chr>, url <chr>
+x <- "E-MEXP-27"
+```
+
+get associated files:
+
+``` r
+ae_get_files(x)
+#> # A tibble: 1 × 2
+#>   accession            files
+#>       <chr>           <list>
+#> 1 E-MEXP-27 <tibble [6 × 7]>
+ae_get_files(x) %>% unnest()
+#> # A tibble: 6 × 8
+#>   accession                  location                      name extension
+#>       <chr>                     <chr>                     <chr>     <chr>
+#> 1 E-MEXP-27         E-MEXP-27.idf.txt         E-MEXP-27.idf.txt       txt
+#> 2 E-MEXP-27 E-MEXP-27.processed.1.zip E-MEXP-27.processed.1.zip       zip
+#> 3 E-MEXP-27       E-MEXP-27.raw.1.zip       E-MEXP-27.raw.1.zip       zip
+#> 4 E-MEXP-27        E-MEXP-27.sdrf.txt        E-MEXP-27.sdrf.txt       txt
+#> 5 E-MEXP-27         A-AFFY-27.adf.txt         A-AFFY-27.adf.txt       txt
+#> 6 E-MEXP-27         A-AFFY-27.adf.xls         A-AFFY-27.adf.xls       xls
+#> # ... with 4 more variables: kind <chr>, size <int>, lastmodified <chr>,
+#> #   url <chr>
+```
+
+get associated samples:
+
+``` r
+ae_get_samples(x)
+#> # A tibble: 1 × 2
+#>   accession           samples
+#>       <chr>            <list>
+#> 1 E-MEXP-27 <tibble [20 × 5]>
+ae_get_samples(x) %>% unnest()
+#> # A tibble: 20 × 6
+#>    accession       assay_name  characteristics            files  scan_name
+#>        <chr>            <chr>           <list>           <list>      <chr>
+#> 1  E-MEXP-27 E-MEXP-27:xrn1-B <tibble [5 × 1]> <tibble [2 × 3]>     xrn1-B
+#> 2  E-MEXP-27       xrn1upf3-A <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf3-A
+#> 3  E-MEXP-27       xrn1nmd2-D <tibble [5 × 1]> <tibble [2 × 3]> xrn1nmd2-D
+#> 4  E-MEXP-27 E-MEXP-27:xrn1-D <tibble [5 × 1]> <tibble [2 × 3]>     xrn1-D
+#> 5  E-MEXP-27           xrn1-C <tibble [5 × 1]> <tibble [2 × 3]>     xrn1-C
+#> 6  E-MEXP-27       xrn1nmd2-C <tibble [5 × 1]> <tibble [2 × 3]> xrn1nmd2-C
+#> 7  E-MEXP-27   E-MEXP-27:WT-D <tibble [5 × 1]> <tibble [2 × 3]>       WT-D
+#> 8  E-MEXP-27       xrn1upf3-B <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf3-B
+#> 9  E-MEXP-27       xrn1upf1-A <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf1-A
+#> 10 E-MEXP-27       xrn1upf1-B <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf1-B
+#> 11 E-MEXP-27       xrn1upf1-D <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf1-D
+#> 12 E-MEXP-27   E-MEXP-27:WT-C <tibble [5 × 1]> <tibble [2 × 3]>       WT-C
+#> 13 E-MEXP-27       xrn1upf3-D <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf3-D
+#> 14 E-MEXP-27   E-MEXP-27:WT-A <tibble [5 × 1]> <tibble [2 × 3]>       WT-A
+#> 15 E-MEXP-27   E-MEXP-27:WT-B <tibble [5 × 1]> <tibble [2 × 3]>       WT-B
+#> 16 E-MEXP-27       xrn1upf3-C <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf3-C
+#> 17 E-MEXP-27 E-MEXP-27:xrn1-A <tibble [5 × 1]> <tibble [2 × 3]>     xrn1-A
+#> 18 E-MEXP-27       xrn1upf1-C <tibble [5 × 1]> <tibble [2 × 3]> xrn1upf1-C
+#> 19 E-MEXP-27       xrn1nmd2-A <tibble [5 × 1]> <tibble [2 × 3]> xrn1nmd2-A
+#> 20 E-MEXP-27       xrn1nmd2-B <tibble [5 × 1]> <tibble [2 × 3]> xrn1nmd2-B
+#> # ... with 1 more variables: source_name <chr>
+```
+
+get associated protocols:
+
+``` r
+ae_get_protocols(x)
+#> # A tibble: 1 × 2
+#>   accession         protocols
+#>       <chr>            <list>
+#> 1 E-MEXP-27 <tibble [7 × 10]>
+ae_get_protocols(x) %>% unnest()
+#> # A tibble: 7 × 11
+#>   accession     id                                       accession
+#>       <chr>  <int>                                           <chr>
+#> 1 E-MEXP-27  79337 Affymetrix:Protocol:Hybridization-EukGE-WS2v4[]
+#> 2 E-MEXP-27     51                                        P-AFFY-6
+#> 3 E-MEXP-27 209830                                        P-AFFY-7
+#> 4 E-MEXP-27 231733                                     P-MEXP-1343
+#> 5 E-MEXP-27 231732                                     P-MEXP-1344
+#> 6 E-MEXP-27 231734                                     P-MEXP-1345
+#> 7 E-MEXP-27 231735                                     P-MEXP-1346
+#> # ... with 8 more variables: name <chr>, text <chr>, type <chr>,
+#> #   performer <chr>, hardware <chr>, software <chr>,
+#> #   standardpublicprotocol <int>, parameter <chr>
+```
+
+#### Customized queries:
+
+Use two composable functions to query against rest api. choose api endpoint with `ae_rest_url()` and execute request via `ae_query(field1=value1, field2=value2,...)`. see: <http://www.ebi.ac.uk/arrayexpress/help/programmatic_access.html#Updates>
+
+``` r
+ae_rest_url()
+#> [1] "https://www.ebi.ac.uk/arrayexpress/json/v3/experiments"
+ae_rest_url("protocols") %>% ae_query(species = "saccharomyces cerevisiae", 
+                                  keywords = "topoisomerase")
+#> Response [https://www.ebi.ac.uk/arrayexpress/json/v3/protocols?species=saccharomyces%20cerevisiae&keywords=topoisomerase]
+#>   Date: 2016-12-05 20:49
+#>   Status: 200
+#>   Content-Type: application/json;charset=UTF-8
+#>   Size: 7.17 kB
+```
+
+### Deprecated:
+
+``` r
+ae_sample_files(x)
 ```
 
 pkg creation:
